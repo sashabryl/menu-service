@@ -29,6 +29,10 @@ class UploadMenu(CreateAPIView):
 
 
 class ListMenu(ListAPIView):
+    """
+    Employees can only see a list of today's menus.
+    Admins can filter menus by date and see the number of votes for each menu.
+    """
     permission_classes = [IsEmployee]
 
     def get_queryset(self):
@@ -58,6 +62,13 @@ class ListMenu(ListAPIView):
 
 @api_view(["POST"])
 def vote_for_menu(request, pk: int):
+    """
+    Only authenticated employees can vote and only once a day.
+    A vote cannot be cancelled. Older menus cannot be voted for.
+    :param request:
+    :param pk:
+    :return:
+    """
 
     if not request.user.is_authenticated:
         raise NotAuthenticated()

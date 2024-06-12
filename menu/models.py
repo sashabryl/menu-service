@@ -1,3 +1,17 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
-# Create your models here.
+
+class Menu(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    restaurant = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="menus"
+    )
+    created_at = models.DateField(auto_now_add=True)
+    votes = models.IntegerField(default=0)
+
+    def str(self):
+        return f"{self.name}, {self.restaurant.username}, {self.created_at}"

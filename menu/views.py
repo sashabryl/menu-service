@@ -47,12 +47,19 @@ def vote_for_menu(request, pk: int):
         raise PermissionDenied()
 
     menu = get_object_or_404(Menu, id=pk)
+    build_version = request.headers.get("Build-Version")
     if Vote.objects.filter(user=request.user, created_at=datetime.date.today()):
-        return Response("You have already voted today.")
+        return Response(
+            f"You have already voted today. "
+            f"P.S. Your build version is {build_version}"
+        )
 
     with transaction.atomic():
         Vote.objects.create(menu=menu, user=request.user)
         menu.num_votes += 1
         menu.save()
 
-    return Response("Thank you for your civic awareness!")
+    return Response(
+        f"Thank you for your civic awareness! "
+        f"P.S. Your build version is {build_version}"
+    )

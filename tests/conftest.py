@@ -23,11 +23,9 @@ def admin_client():
 @pytest.fixture
 def restaurant_client():
     restaurant = get_user_model().objects.create_user(
-        username="restaurant",
-        password="asdf!qwe",
-        is_restaurant=True
+        username="restaurant", password="asdf!qwe", is_restaurant=True
     )
-    client= APIClient()
+    client = APIClient()
     client.force_authenticate(restaurant)
     return client
 
@@ -35,11 +33,9 @@ def restaurant_client():
 @pytest.fixture
 def employee_client():
     employee = get_user_model().objects.create_user(
-        username="employee",
-        password="asdf!qwe",
-        is_employee=True
+        username="employee", password="asdf!qwe", is_employee=True
     )
-    client= APIClient()
+    client = APIClient()
     client.force_authenticate(employee)
     return client
 
@@ -47,14 +43,10 @@ def employee_client():
 @pytest.fixture
 def menus():
     restaurant1 = get_user_model().objects.create_user(
-        username="restaurant1",
-        password="asdf!qwe",
-        is_restaurant=True
+        username="restaurant1", password="asdf!qwe", is_restaurant=True
     )
     restaurant2 = get_user_model().objects.create_user(
-        username="restaurant2",
-        password="asdf!qwe",
-        is_restaurant=True
+        username="restaurant2", password="asdf!qwe", is_restaurant=True
     )
     menu_1 = Menu.objects.create(
         name="Menu 1", description="Marvelous", restaurant=restaurant1

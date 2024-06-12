@@ -71,7 +71,9 @@ def test_vote_for_menu_unauthenticated(client: APIClient, menus):
 
 
 @pytest.mark.django_db
-def test_vote_for_menu_failure_already_voted(employee_client: APIClient, menus):
+def test_vote_for_menu_failure_already_voted(
+    employee_client: APIClient, menus
+):
     first_menu = menus[0]
     url = reverse_lazy("menu:vote_menu", args=[first_menu.id])
     employee_client.post(url)

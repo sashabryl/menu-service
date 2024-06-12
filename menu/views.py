@@ -4,30 +4,42 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.generics import CreateAPIView, ListAPIView
-from rest_framework.exceptions import NotAuthenticated, ValidationError, PermissionDenied
+from rest_framework.exceptions import (
+    NotAuthenticated,
+    ValidationError,
+    PermissionDenied,
+)
 from rest_framework.response import Response
 
 from menu.models import Menu, Vote
 from menu.permissions import IsRestaurant, IsEmployee
-from menu.serializers import MenuUploadSerializer, MenuListSerializer, MenuListSerializerEmployee
+from menu.serializers import (
+    MenuUploadSerializer,
+    MenuListSerializer,
+    MenuListSerializerEmployee,
+)
 
 
 class UploadMenu(CreateAPIView):
     """
     One restaurant can upload only one menu a day.
     """
+
     serializer_class = MenuUploadSerializer
     queryset = (
-        Menu.objects
-        .select_related("restaurant")
+        Menu.objects.select_related("restaurant")
         .prefetch_related("votes")
         .all()
     )
     permission_classes = [IsRestaurant]
 
     def perform_create(self, serializer):
-        if self.queryset.filter(restaurant=self.request.user, created_at=datetime.date.today()):
-            raise ValidationError(detail="You have already uploaded your menu for today!")
+        if self.queryset.filter(
+            restaurant=self.request.user, created_at=datetime.date.today()
+        ):
+            raise ValidationError(
+                detail="You have already uploaded your menu for today!"
+            )
         return serializer.save(restaurant=self.request.user)
 
 
@@ -36,13 +48,12 @@ class ListMenu(ListAPIView):
     Employees can only see a list of today's menus.
     Admins can filter menus by date and see the number of votes for each menu.
     """
+
     permission_classes = [IsEmployee]
 
     def get_queryset(self):
-        queryset = (
-            Menu.objects
-            .select_related("restaurant")
-            .prefetch_related("votes")
+        queryset = Menu.objects.select_related("restaurant").prefetch_related(
+            "votes"
         )
 
         if not self.request.user.is_superuser:
@@ -82,10 +93,14 @@ def vote_for_menu(request, pk: int):
     build_version = request.headers.get("Build-Version")
 
     if menu.created_at != datetime.date.today():
-        raise ValidationError(f"This menu is too old for voting. "
-                        f"P.S. Your build version is {build_version}")
+        raise ValidationError(
+            f"This menu is too old for voting. "
+            f"P.S. Your build version is {build_version}"
+        )
 
-    if Vote.objects.filter(user=request.user, created_at=datetime.date.today()):
+    if Vote.objects.filter(
+        user=request.user, created_at=datetime.date.today()
+    ):
         raise ValidationError(
             f"You have already voted today. "
             f"P.S. Your build version is {build_version}"

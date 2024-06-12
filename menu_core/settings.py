@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -24,7 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-5vbpz_#kt(bflcf@du_836z1mnlb_@qokzvv05fl(d=1n5wjn4"
+SECRET_KEY = (
+    "django-insecure-5vbpz_#kt(bflcf@du_836z1mnlb_@qokzvv05fl(d=1n5wjn4"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,7 +48,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "user",
-    "menu"
+    "menu",
 ]
 
 MIDDLEWARE = [
@@ -91,7 +94,6 @@ DATABASES = {
         "HOST": os.getenv("POSTGRES_HOST"),
     }
 }
-
 
 
 # Password validation
@@ -141,10 +143,9 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }

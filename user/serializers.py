@@ -6,12 +6,8 @@ from rest_framework import serializers
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        max_length=255, write_only=True
-    )
-    confirm_password = serializers.CharField(
-        max_length=255, write_only=True
-    )
+    password = serializers.CharField(max_length=255, write_only=True)
+    confirm_password = serializers.CharField(max_length=255, write_only=True)
 
     class Meta:
         model = get_user_model()

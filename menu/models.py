@@ -6,9 +6,7 @@ class Menu(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     restaurant = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.CASCADE,
-        related_name="menus"
+        get_user_model(), on_delete=models.CASCADE, related_name="menus"
     )
     created_at = models.DateField(auto_now_add=True)
     num_votes = models.IntegerField(default=0)
@@ -17,7 +15,7 @@ class Menu(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=["restaurant", "created_at"],
-                name="one_menu_per_restaurant_per_day_constraint"
+                name="one_menu_per_restaurant_per_day_constraint",
             )
         ]
 
@@ -27,13 +25,9 @@ class Menu(models.Model):
 
 class Vote(models.Model):
     user = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.CASCADE,
-        related_name="votes"
+        get_user_model(), on_delete=models.CASCADE, related_name="votes"
     )
     menu = models.ForeignKey(
-        Menu,
-        on_delete=models.CASCADE,
-        related_name="votes"
+        Menu, on_delete=models.CASCADE, related_name="votes"
     )
     created_at = models.DateField(auto_now_add=True)

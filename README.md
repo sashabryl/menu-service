@@ -21,6 +21,11 @@ To see the documentation, visit /api/schema/swagger-ui/
 docker exec -it <id of the docker container with the app> pytest
 ```
 
+## Code Cleaning
+```bash
+black . -l 79
+```
+
 ## How it works
 Before you can do anything, a superuser must be created:
 ```bash

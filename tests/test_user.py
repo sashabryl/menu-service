@@ -8,7 +8,7 @@ def test_create_employee(admin_client: APIClient):
     payload = {
         "username": "employee",
         "password": "asdf!qwe",
-        "confirm_password": "asdf!qwe"
+        "confirm_password": "asdf!qwe",
     }
     url = reverse_lazy("user:create_employee")
     response = admin_client.post(url, data=payload)
@@ -22,7 +22,7 @@ def test_create_employee_failure(admin_client: APIClient):
     payload = {
         "username": "employee",
         "password": "asdf!qwe",
-        "confirm_password": "asdf!qwe123"
+        "confirm_password": "asdf!qwe123",
     }
     url = reverse_lazy("user:create_employee")
     response = admin_client.post(url, data=payload)
@@ -35,7 +35,7 @@ def test_create_employee_unauthenticated(client: APIClient):
     payload = {
         "username": "employee",
         "password": "asdf!qwe",
-        "confirm_password": "asdf!qwe123"
+        "confirm_password": "asdf!qwe123",
     }
     url = reverse_lazy("user:create_employee")
     response = client.post(url, data=payload)
@@ -48,7 +48,7 @@ def test_create_restaurant(admin_client: APIClient):
     payload = {
         "username": "restaurant",
         "password": "asdf!qwe",
-        "confirm_password": "asdf!qwe"
+        "confirm_password": "asdf!qwe",
     }
     url = reverse_lazy("user:create_restaurant")
     response = admin_client.post(url, data=payload)
@@ -62,7 +62,7 @@ def test_create_restaurant_failure(admin_client: APIClient):
     payload = {
         "username": "restaurant",
         "password": "asdf!qwe",
-        "confirm_password": "asdf!qwe123"
+        "confirm_password": "asdf!qwe123",
     }
     url = reverse_lazy("user:create_restaurant")
     response = admin_client.post(url, data=payload)
@@ -75,7 +75,7 @@ def test_create_restaurant_failure_unique_name(admin_client: APIClient):
     payload = {
         "username": "restaurant",
         "password": "asdf!qwe",
-        "confirm_password": "asdf!qwe"
+        "confirm_password": "asdf!qwe",
     }
     url = reverse_lazy("user:create_restaurant")
     admin_client.post(url, data=payload)
@@ -89,7 +89,7 @@ def test_create_restaurant_unauthenticated(client: APIClient):
     payload = {
         "username": "restaurant",
         "password": "asdf!qwe",
-        "confirm_password": "asdf!qwe"
+        "confirm_password": "asdf!qwe",
     }
     url = reverse_lazy("user:create_restaurant")
     response = client.post(url, data=payload)

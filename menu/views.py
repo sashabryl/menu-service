@@ -23,6 +23,8 @@ class UploadMenu(CreateAPIView):
     permission_classes = [IsRestaurant]
 
     def perform_create(self, serializer):
+        if self.queryset.filter(restaurant=self.request.user, created_at=datetime.date.today()):
+            raise PermissionDenied(detail="You have already uploaded your menu for today!")
         return serializer.save(restaurant=self.request.user)
 
 

@@ -12,3 +12,11 @@ class CreateEmployee(CreateAPIView):
 
     def perform_create(self, serializer):
         return serializer.save(is_employee=True)
+
+class CreateRestaurant(CreateAPIView):
+    serializer_class = UserCreateSerializer
+    queryset = get_user_model().objects.all()
+    permission_classes = [IsAdminUser]
+
+    def perform_create(self, serializer):
+        return serializer.save(is_restaurant=True)

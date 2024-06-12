@@ -1,9 +1,10 @@
 from django.urls import path
 
-from menu.views import UploadMenu
+from menu.views import UploadMenu, ListMenu
 
 app_name = "menu"
 
 urlpatterns = [
-    path("", UploadMenu.as_view(), name="upload_menu")
+    path("", ListMenu.as_view(), name="list_menu"),
+    path("upload/", UploadMenu.as_view(), name="upload_menu"),
 ]

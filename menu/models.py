@@ -28,3 +28,4 @@ class Vote(models.Model):
         on_delete=models.CASCADE,
         related_name="votes"
     )
+    created_at = models.DateField(auto_now_add=True)

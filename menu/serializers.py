@@ -12,4 +12,4 @@ class MenuUploadSerializer(serializers.ModelSerializer):
 class MenuListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Menu
-        fields = ("name", "description", "num_votes", "created_at")
+        fields = ("id", "name", "description", "num_votes", "created_at")

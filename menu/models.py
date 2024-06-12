@@ -15,3 +15,16 @@ class Menu(models.Model):
 
     def str(self):
         return f"{self.name}, {self.restaurant.username}, {self.created_at}"
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="votes"
+    )
+    menu = models.ForeignKey(
+        Menu,
+        on_delete=models.CASCADE,
+        related_name="votes"
+    )

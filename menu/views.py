@@ -13,6 +13,9 @@ from menu.serializers import MenuUploadSerializer, MenuListSerializer, MenuListS
 
 
 class UploadMenu(CreateAPIView):
+    """
+    One restaurant can upload only one menu a day.
+    """
     serializer_class = MenuUploadSerializer
     queryset = (
         Menu.objects

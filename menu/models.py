@@ -11,7 +11,7 @@ class Menu(models.Model):
         related_name="menus"
     )
     created_at = models.DateField(auto_now_add=True)
-    votes = models.IntegerField(default=0)
+    num_votes = models.IntegerField(default=0)
 
     def str(self):
         return f"{self.name}, {self.restaurant.username}, {self.created_at}"
